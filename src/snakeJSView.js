@@ -10,6 +10,11 @@ SnakeView.prototype = {
 		this.canvasContext.fillRect(0,0,500,500)
 	},
 
+	refreshScreen: function(){
+		this.canvasContext.fillStyle= "rgba(0,0,0,1)"
+		this.canvasContext.fillRect(0,0,500,500)
+	},
+
 	paintOnCanvas: function(growthPos){
 		this.canvasContext.fillStyle= "rgba(255,255,255,1)"
 		this.canvasContext.fillRect( this.findXAxis( growthPos ), this.findYAxis( growthPos ), 25, 25 )

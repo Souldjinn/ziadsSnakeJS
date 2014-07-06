@@ -12,6 +12,18 @@ function SnakeGameController(){
 
 SnakeGameController.prototype = {
 	startGame: function(){
-		this.View.updateSnakeScreen(this.Model.allSnakeBodyPositions())
+		while(this.gameIsActive()){
+			this.View.refreshScreen();
+			this.View.updateSnakeScreen(this.Model.allSnakeBodyPositions());
+			this.Model.moveSnake();
+		}
+	},
+
+	gameIsActive: function(){
+		if(this.Model.snakeBody[1].boardPos< 20){
+			return true
+		}else{
+			return false
+		}
 	}
 }

@@ -14,6 +14,12 @@ SnakeModel.prototype = {
 			arrayOfPositions.push(this.snakeBody[x].boardPos)
 		}
 		return arrayOfPositions
+	},
+	moveSnake: function(){
+		for(var x=0; x<=(this.snakeBodyLength()-2); x++){
+			this.snakeBody[x].boardPos = this.snakeBody[x+1].boardPos
+		}
+		this.snakeBody[this.snakeBodyLength()-1].boardPos = this.snakeBody[this.snakeBodyLength()-1].boardPos+1
 	}
 }
 

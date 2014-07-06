@@ -7,4 +7,6 @@
  
 .canvas-holder{
 	text-align: center;
+	border-style: solid;
+	background-color: blue;
 }

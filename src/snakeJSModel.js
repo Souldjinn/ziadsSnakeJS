@@ -7,6 +7,13 @@ function SnakeModel(){
 SnakeModel.prototype = {
 	snakeBodyLength: function(){
 		return this.snakeBody.length
+	},
+	allSnakeBodyPositions: function(){
+		arrayOfPositions = []
+		for(var x=0; x<this.snakeBodyLength(); x++){
+			arrayOfPositions.push(this.snakeBody[x].boardPos)
+		}
+		return arrayOfPositions
 	}
 }
 

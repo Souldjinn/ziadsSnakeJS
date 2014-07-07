@@ -2,6 +2,7 @@ function SnakeModel(){
 	this.snakeBody = []
 	this.snakeBody.push(new SnakeGrowth(1, 0))
 	this.snakeBody.push(new SnakeGrowth(0, 1))
+	this.headPosition = 1
 }
 
 SnakeModel.prototype = {
@@ -15,11 +16,38 @@ SnakeModel.prototype = {
 		}
 		return arrayOfPositions
 	},
+
 	moveSnake: function(){
 		for(var x=0; x<=(this.snakeBodyLength()-2); x++){
 			this.snakeBody[x].boardPos = this.snakeBody[x+1].boardPos
 		}
-		this.snakeBody[this.snakeBodyLength()-1].boardPos = this.snakeBody[this.snakeBodyLength()-1].boardPos+1
+		this.snakeBody[ this.snakeBodyLength()-1 ].boardPos = this.snakeBody[ this.snakeBodyLength()-1 ].boardPos + this.headPosition
+	},
+
+
+	changeDirectionUp: function(){
+		if( this.headPosition!== 20 ){
+			this.headPosition = -20
+		}
+	},
+
+	changeDirectionDown: function(){
+		if( this.headPosition!== -20 ){
+			this.headPosition = 20
+		}
+	},
+
+
+	changeDirectionRight: function(){
+		if( this.headPosition!== -1 ){
+			this.headPosition = 1
+		}
+	},
+
+	changeDirectionLeft: function(){
+		if( this.headPosition!== 1 ){
+			this.headPosition = -1
+		}
 	}
 }
 

@@ -28,6 +28,11 @@ SnakeView.prototype = {
 		return Math.floor(growthPos/20) * 25
 	},
 
+	addFood: function(foodPosition){
+		this.canvasContext.fillStyle= "rgba(255,0,0,1)"
+		this.canvasContext.fillRect(this.findXAxis( foodPosition), this.findYAxis( foodPosition ), 25, 25)
+	},
+
 	updateSnakeScreen: function(arrayOfPositions){
 		for(var x=(arrayOfPositions.length-1); x>=0; x--){
 			this.paintSnakeOnCanvas(arrayOfPositions[x])

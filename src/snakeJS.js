@@ -89,6 +89,7 @@ SnakeGameController.prototype = {
 	executeTurn: function(){
 		this.View.refreshScreen();
 		this.View.updateSnakeScreen(this.Model.allSnakeBodyPositions());
+		this.View.addFood(this.snakeFoodPosition)
 		this.Model.moveSnake();
 		this.placeSnakeOnBoard()
 		console.log(this.Model.snakeBody[1].boardPos)

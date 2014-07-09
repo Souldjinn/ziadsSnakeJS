@@ -2,6 +2,7 @@ window.addEventListener( 'load', function(){
   newGame = new SnakeGameController()
   newGame.View.readyPlayScreen()
   newGame.generateListeners()
+  newGame.setUpBoard();
   newGame.startGame()
 })
 
@@ -10,9 +11,24 @@ function SnakeGameController(){
 	this.View = new SnakeView();
 	this.Model = new SnakeModel();
 	this.conInterval = setInterval(); 
+	this.snakeGameBoard = [];
 }
 
 SnakeGameController.prototype = {
+	setUpBoard: function(){
+		for(var i=0; i<400; i++){
+			this.snakeGameBoard.push(0)
+		}
+		this.placeSnakeOnBoard()
+	},
+
+	placeSnakeOnBoard: function(){
+		for(var i=0; i<this.Model.snakeBodyLength(); i++){
+			snakePosition = this.Model.snakeBody[i].boardPos
+			this.snakeGameBoard[snakePosition] = 1
+		}
+	},
+
 	generateListeners: function(){
 		window.addEventListener("keydown", this.changeSnakeDirection.bind(this), false)
 	},
@@ -42,13 +58,14 @@ SnakeGameController.prototype = {
 
 	},
 	startGame: function(){
-		this.conInterval = setInterval(this.executeTurn.bind(this), 500)
+		this.conInterval = setInterval(this.executeTurn.bind(this), 200)
 	},
 
 	executeTurn: function(){
 		this.View.refreshScreen();
 		this.View.updateSnakeScreen(this.Model.allSnakeBodyPositions());
 		this.Model.moveSnake();
+		this.placeSnakeOnBoard()
 		console.log(this.Model.snakeBody[1].boardPos)
 		this.gameIsActive()
 	},

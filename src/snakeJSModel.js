@@ -1,7 +1,9 @@
 function SnakeModel(){
 	this.snakeBody = []
-	this.snakeBody.push(new SnakeGrowth(1, 0))
-	this.snakeBody.push(new SnakeGrowth(0, 1))
+	this.snakeBody.push(new SnakeGrowth(2, 0))
+	this.snakeBody.push(new SnakeGrowth(1, 1))
+	this.snakeBody.push(new SnakeGrowth(0, 2))
+
 	this.headPosition = 1
 }
 
@@ -23,7 +25,6 @@ SnakeModel.prototype = {
 		}
 		this.snakeBody[ this.snakeBodyLength()-1 ].boardPos = this.snakeBody[ this.snakeBodyLength()-1 ].boardPos + this.headPosition
 	},
-
 
 	changeDirectionUp: function(){
 		if( this.headPosition!== 20 ){

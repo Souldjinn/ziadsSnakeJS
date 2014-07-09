@@ -3,7 +3,7 @@ window.addEventListener( 'load', function(){
   newGame.View.readyPlayScreen()
   newGame.generateListeners()
   newGame.setUpBoard()
-  newGame.setApple()
+  newGame.setFood()
   newGame.startGame()
 })
 
@@ -24,7 +24,7 @@ SnakeGameController.prototype = {
 		this.placeSnakeOnBoard()
 	},
 
-	setApple: function(){
+	setFood: function(){
 		randomNum = this.randomNumberGen();
 		while(this.snakeGameBoard[randomNum]==1){
 			randomNum= this.randomNumberGen();
@@ -39,11 +39,19 @@ SnakeGameController.prototype = {
 		return randomNum
 	},
 
+	clearBoard: function(){
+		for(var i=0; i<400; i++){
+			this.snakeGameBoard[i] = 0
+		}
+	},
+
 	placeSnakeOnBoard: function(){
+		this.clearBoard();
 		for(var i=0; i<this.Model.snakeBodyLength(); i++){
 			snakePosition = this.Model.snakeBody[i].boardPos
 			this.snakeGameBoard[snakePosition] = 1
 		}
+		this.snakeGameBoard[this.snakeFoodPosition] =2
 	},
 
 	generateListeners: function(){

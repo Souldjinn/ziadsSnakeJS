@@ -11,6 +11,11 @@ SnakeModel.prototype = {
 	snakeBodyLength: function(){
 		return this.snakeBody.length
 	},
+
+	growSnake: function(){
+		this.snakeBody.push(new SnakeGrowth(null, this.snakeBodyLength()))
+	},
+
 	allSnakeBodyPositions: function(){
 		arrayOfPositions = []
 		for(var x=0; x<this.snakeBodyLength(); x++){
@@ -20,10 +25,10 @@ SnakeModel.prototype = {
 	},
 
 	moveSnake: function(){
-		for(var x=0; x<=(this.snakeBodyLength()-2); x++){
-			this.snakeBody[x].boardPos = this.snakeBody[x+1].boardPos
+		for(var x=(this.snakeBodyLength()-1); x>=1; x--){
+			this.snakeBody[x].boardPos = this.snakeBody[x-1].boardPos
 		}
-		this.snakeBody[ this.snakeBodyLength()-1 ].boardPos = this.snakeBody[ this.snakeBodyLength()-1 ].boardPos + this.headPosition
+		this.snakeBody[0].boardPos += this.headPosition
 	},
 
 	changeDirectionUp: function(){

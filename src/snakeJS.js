@@ -14,6 +14,7 @@ function SnakeGameController(){
 	this.conInterval = setInterval();
 	this.snakeGameBoard = [];
 	this.snakeFoodPosition = null
+	this.playerScore = 0
 }
 
 SnakeGameController.prototype = {
@@ -87,12 +88,31 @@ SnakeGameController.prototype = {
 	},
 
 	executeTurn: function(){
+		this.fullViewRefresh()
+		this.Model.moveSnake();
+		this.placeSnakeOnBoard()
+		this.snakeEatingCheck();
+		this.gameIsActive()
+	},
+
+	fullViewRefresh: function(){
 		this.View.refreshScreen();
 		this.View.updateSnakeScreen(this.Model.allSnakeBodyPositions());
 		this.View.paintFoodOnCanvas(this.snakeFoodPosition)
+	},
+
+	snakeEatingCheck: function(){
+		if(this.Model.snakeBody[0].boardPos === this.snakeFoodPosition){
+			this.snakeHasEaten()
+		}
+	},
+
+	snakeHasEaten: function(){
+		this.setFood()
+		this.Model.growSnake();
 		this.Model.moveSnake();
-		this.placeSnakeOnBoard()
-		this.gameIsActive()
+		this.fullViewRefresh();
+		this.playerScore +=1
 	},
 
 	gameIsActive: function(){

@@ -42,9 +42,19 @@ SnakeModel.prototype = {
 				this.snakeHead.boardPos -= 19
 			}else if(this.willHitLeftWall()){
 				this.snakeHead.boardPos += 19
+			}else if(this.willHitUpperWall()){
+				this.snakeHead.boardPos += 380
 			}else{
 				this.snakeHead.boardPos += this.headPosition
 			}
+	},
+
+	willHitUpperWall: function(){
+		if( ( (this.snakeHead.boardPos - 20) < 0) && (this.headPosition === -20)){
+			return true
+		}else{
+			return false
+		}
 	},
 
 	willHitLeftWall: function(){

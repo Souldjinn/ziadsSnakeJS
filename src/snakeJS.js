@@ -59,7 +59,6 @@ SnakeGameController.prototype = {
 		window.addEventListener("keydown", this.changeSnakeDirection.bind(this), false)
 	},
 	changeSnakeDirection: function(event){
-		console.log(event.keyCode)
 		  switch (event.keyCode) {
 		  	case 37:
 		  		event.preventDefault()

@@ -13,7 +13,11 @@ SnakeModel.prototype = {
 	},
 
 	growSnake: function(){
-		this.snakeBody.push(new SnakeGrowth(null, this.snakeBodyLength()))
+		this.snakeBody.push(new SnakeGrowth(this.findLastPosition(), this.snakeBodyLength()))
+	},
+
+	findLastPosition: function(){
+		return this.snakeBody[(this.snakeBodyLength()-1)].boardPos
 	},
 
 	allSnakeBodyPositions: function(){
@@ -24,16 +28,6 @@ SnakeModel.prototype = {
 		return arrayOfPositions
 	},
 
-//OSIUDFLIWJEF:LKJSDF:LKSJEGF
-//EPIPHANY
-//Since we keep a record of the direction of the snake
-//we can figure out when its going to hit a left or right
-//wall. For example, if the snake's next position would be 41,
-//and its head position is 1, that means it was moving to the right
-//and has hit a wall. In theory I could make the walls now be death
-//conditions. But I kind of think I want to leave them open and make
-//the snake return to the same row when it passes the wall.
-//For now I will just make the snake not die at wall hit.
 	moveSnake: function(){
 		for(var x=(this.snakeBodyLength()-1); x>=1; x--){
 			this.snakeBody[x].boardPos = this.snakeBody[x-1].boardPos

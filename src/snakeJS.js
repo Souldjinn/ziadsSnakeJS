@@ -63,25 +63,36 @@ SnakeGameController.prototype = {
 		  	case 37:
 		  		event.preventDefault()
 		  		this.Model.changeDirectionLeft();
+		  		this.generateFluidMoves()
 		  	break;
 
 		  	case 38:
 		  		event.preventDefault()
 		  		this.Model.changeDirectionUp();
+		  		this.generateFluidMoves()
 		  	break;
 
 		  	case 39:
 		  		event.preventDefault()
 		  		this.Model.changeDirectionRight();
+		  		this.generateFluidMoves()
 		  	break;
 
 		  	case 40:
 		  		event.preventDefault()
 		  		this.Model.changeDirectionDown();
+		  		this.generateFluidMoves()
 		  	break;
 		  }
 
 	},
+
+	generateFluidMoves: function(){
+		clearInterval(this.conInterval)
+		this.executeTurn()
+		this.conInterval = setInterval(this.executeTurn.bind(this), 200)
+	},
+
 	startGame: function(){
 		this.conInterval = setInterval(this.executeTurn.bind(this), 200)
 	},
@@ -109,8 +120,6 @@ SnakeGameController.prototype = {
 	snakeHasEaten: function(){
 		this.setFood()
 		this.Model.growSnake();
-		this.Model.moveSnake();
-		this.fullViewRefresh();
 		this.playerScore +=1
 	},
 

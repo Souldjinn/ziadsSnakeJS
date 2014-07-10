@@ -11,7 +11,7 @@ window.addEventListener( 'load', function(){
 function SnakeGameController(){
 	this.View = new SnakeView();
 	this.Model = new SnakeModel();
-	this.conInterval = setInterval(); 
+	this.conInterval = setInterval();
 	this.snakeGameBoard = [];
 	this.snakeFoodPosition = null
 }
@@ -34,7 +34,7 @@ SnakeGameController.prototype = {
 	},
 
 	randomNumberGen: function(){
-		randomNum= Math.random() * (400 - 0) 
+		randomNum= Math.random() * (400 - 0)
 		randomNum= Math.round(randomNum)
 		return randomNum
 	},
@@ -65,17 +65,17 @@ SnakeGameController.prototype = {
 		  		this.Model.changeDirectionLeft();
 		  	break;
 
-		  	case 38: 
+		  	case 38:
 		  		event.preventDefault()
 		  		this.Model.changeDirectionUp();
 		  	break;
 
 		  	case 39:
-		  		event.preventDefault() 
+		  		event.preventDefault()
 		  		this.Model.changeDirectionRight();
 		  	break;
 
-		  	case 40: 
+		  	case 40:
 		  		event.preventDefault()
 		  		this.Model.changeDirectionDown();
 		  	break;
@@ -89,9 +89,9 @@ SnakeGameController.prototype = {
 	executeTurn: function(){
 		this.View.refreshScreen();
 		this.View.updateSnakeScreen(this.Model.allSnakeBodyPositions());
+		this.View.paintFoodOnCanvas(this.snakeFoodPosition)
 		this.Model.moveSnake();
 		this.placeSnakeOnBoard()
-		console.log(this.Model.snakeBody[1].boardPos)
 		this.gameIsActive()
 	},
 

@@ -20,8 +20,13 @@ SnakeView.prototype = {
 		this.canvasContext.fillRect( this.findXAxis( growthPos ), this.findYAxis( growthPos ), 25, 25 )
 	},
 
+	paintFoodOnCanvas: function(foodPos){
+		this.canvasContext.fillStyle= "rgba(255,0,0,1)"
+		this.canvasContext.fillRect( this.findXAxis( foodPos ), this.findYAxis( foodPos), 25, 25 )
+	},
+
 	findXAxis: function(growthPos){
-		return ( growthPos%20 )*25 
+		return ( growthPos%20 )*25
 	},
 
 	findYAxis: function(growthPos){

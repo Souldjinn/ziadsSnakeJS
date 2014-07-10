@@ -40,13 +40,24 @@ SnakeModel.prototype = {
 		}
 			if(this.willHitRightWall()){
 				this.snakeHead.boardPos -= 19
+			}else if(this.willHitLeftWall()){
+				this.snakeHead.boardPos += 19
 			}else{
 				this.snakeHead.boardPos += this.headPosition
 			}
 	},
 
+	willHitLeftWall: function(){
+		if( ( (this.snakeHead.boardPos - 1) %20 == 19) && (this.headPosition === -1) ){
+			return true
+		}else{
+			return false
+		}
+
+	},
+
 	willHitRightWall: function(){
-		if( ((this.snakeHead.boardPos + 2 ) %20 === 1) && (this.headPosition === 1) ){
+		if( ((this.snakeHead.boardPos + 1 ) %20 === 0) && (this.headPosition === 1) ){
 			return true
 		}else{
 			return false

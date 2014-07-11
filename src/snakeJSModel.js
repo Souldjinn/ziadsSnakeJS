@@ -1,8 +1,13 @@
+//custom events
+//jquery trigger
+
 function SnakeModel(){
 	this.snakeBody = []
-	this.snakeBody.push(new SnakeGrowth(2, 0))
-	this.snakeBody.push(new SnakeGrowth(1, 1))
-	this.snakeBody.push(new SnakeGrowth(0, 2))
+	//initialize?
+	this.snakeBody.push(new SnakeNode(2, 0))
+	this.snakeBody.push(new SnakeNode(1, 1))
+	this.snakeBody.push(new SnakeNode(0, 2))
+	//direction
 	this.headPosition = 1
 	this.snakeHead = this.snakeBody[0]
 }
@@ -13,7 +18,7 @@ SnakeModel.prototype = {
 	},
 
 	growSnake: function(){
-		this.snakeBody.push(new SnakeGrowth(this.findLastPosition(), this.snakeBodyLength()))
+		this.snakeBody.push(new SnakeNode(this.findLastPosition(), this.snakeBodyLength()))
 	},
 
 	findLastPosition: function(){
@@ -105,7 +110,7 @@ SnakeModel.prototype = {
 }
 
 
-function SnakeGrowth(boardPos, snakePart){
+function SnakeNode(boardPos, snakePart){
 	this.boardPos = boardPos
 	this.snakePart = snakePart
 }

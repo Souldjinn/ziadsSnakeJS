@@ -9,7 +9,7 @@ window.addEventListener( 'load', function(){
 
 
 function SnakeGameController(){
-	this.View = new SnakeView();
+	this.View = new Canvas();
 	this.Model = new SnakeModel();
 	this.conInterval = setInterval();
 	this.snakeGameBoard = [];
@@ -61,30 +61,28 @@ SnakeGameController.prototype = {
 	changeSnakeDirection: function(event){
 		  switch (event.keyCode) {
 		  	case 37:
-		  		event.preventDefault()
-		  		this.Model.changeDirectionLeft();
-		  		this.generateFluidMoves()
+		  		this.changeDirection( event, this.Model.changeDirectionLeft )
 		  	break;
 
 		  	case 38:
-		  		event.preventDefault()
-		  		this.Model.changeDirectionUp();
-		  		this.generateFluidMoves()
+		  		this.changeDirection( event, this.Model.changeDirectionUp )
 		  	break;
 
 		  	case 39:
-		  		event.preventDefault()
-		  		this.Model.changeDirectionRight();
-		  		this.generateFluidMoves()
+		  		this.changeDirection( event, this.Model.changeDirectionRight )
 		  	break;
 
 		  	case 40:
-		  		event.preventDefault()
-		  		this.Model.changeDirectionDown();
-		  		this.generateFluidMoves()
+		  		this.changeDirection( event, this.Model.changeDirectionDown )
 		  	break;
 		  }
 
+	},
+
+	changeDirection: function( e, direction ){
+		e.preventDefault()
+		direction.call( this.Model )
+		this.generateFluidMoves()
 	},
 
 	generateFluidMoves: function(){

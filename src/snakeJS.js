@@ -54,7 +54,6 @@ SnakeGameController.prototype = {
 			this.snakeGameBoard[snakePosition] = 1
 		}
 		this.snakeGameBoard[this.snakeFoodPosition] =2
-		// debugger
 	},
 
 	generateListeners: function(){
@@ -102,6 +101,7 @@ SnakeGameController.prototype = {
 		this.Model.moveSnake();
 		this.placeSnakeOnBoard()
 		this.snakeEatingCheck();
+		this.View.updateScore(this.playerScore)
 		this.selfHitCheck()
 	},
 
@@ -134,6 +134,7 @@ SnakeGameController.prototype = {
 		this.View = new Canvas();
 		this.Model = new SnakeModel();
 		this.clearBoard()
+		this.playerScore = 0
 		clearInterval(this.conInterval)
 	}
 

@@ -1,6 +1,7 @@
 function Canvas(){
 	this.canvas = document.getElementsByClassName("snake-screen")[0]
 	this.ctx = this.canvas.getContext("2d")
+	this.scoreIs = document.querySelector(".score-holder")
 }
 
 Canvas.prototype = {
@@ -8,6 +9,10 @@ Canvas.prototype = {
 	readyPlayScreen: function(){
 		this.ctx.fillStyle= "rgba(0,0,0,1)"
 		this.ctx.fillRect(0,0,500,500)
+	},
+
+	updateScore: function(scoreValue){
+		this.scoreIs.innerText = scoreValue
 	},
 
 	refreshScreen: function(){

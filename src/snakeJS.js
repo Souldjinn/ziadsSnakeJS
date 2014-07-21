@@ -9,11 +9,12 @@ window.addEventListener( 'load', function(){
 
 
 function SnakeGameController(){
-	this.View = new SnakeView();
+	this.View = new Canvas();
 	this.Model = new SnakeModel();
-	this.conInterval = setInterval(); 
+	this.conInterval = setInterval();
 	this.snakeGameBoard = [];
 	this.snakeFoodPosition = null
+	this.playerScore = 0
 }
 
 SnakeGameController.prototype = {
@@ -34,7 +35,7 @@ SnakeGameController.prototype = {
 	},
 
 	randomNumberGen: function(){
-		randomNum= Math.random() * (400 - 0) 
+		randomNum= Math.random() * (400 - 0)
 		randomNum= Math.round(randomNum)
 		return randomNum
 	},
@@ -58,42 +59,66 @@ SnakeGameController.prototype = {
 		window.addEventListener("keydown", this.changeSnakeDirection.bind(this), false)
 	},
 	changeSnakeDirection: function(event){
-		console.log(event.keyCode)
 		  switch (event.keyCode) {
 		  	case 37:
-		  		event.preventDefault()
-		  		this.Model.changeDirectionLeft();
+		  		this.changeDirection( event, this.Model.changeDirectionLeft )
 		  	break;
 
-		  	case 38: 
-		  		event.preventDefault()
-		  		this.Model.changeDirectionUp();
+		  	case 38:
+		  		this.changeDirection( event, this.Model.changeDirectionUp )
 		  	break;
 
 		  	case 39:
-		  		event.preventDefault() 
-		  		this.Model.changeDirectionRight();
+		  		this.changeDirection( event, this.Model.changeDirectionRight )
 		  	break;
 
-		  	case 40: 
-		  		event.preventDefault()
-		  		this.Model.changeDirectionDown();
+		  	case 40:
+		  		this.changeDirection( event, this.Model.changeDirectionDown )
 		  	break;
 		  }
 
 	},
+
+	changeDirection: function( e, direction ){
+		e.preventDefault()
+		direction.call( this.Model )
+		this.generateFluidMoves()
+	},
+
+	generateFluidMoves: function(){
+		clearInterval(this.conInterval)
+		this.executeTurn()
+		this.conInterval = setInterval(this.executeTurn.bind(this), 200)
+	},
+
 	startGame: function(){
 		this.conInterval = setInterval(this.executeTurn.bind(this), 200)
 	},
 
 	executeTurn: function(){
-		this.View.refreshScreen();
-		this.View.updateSnakeScreen(this.Model.allSnakeBodyPositions());
-		this.View.addFood(this.snakeFoodPosition)
+		this.fullViewRefresh()
 		this.Model.moveSnake();
 		this.placeSnakeOnBoard()
-		console.log(this.Model.snakeBody[1].boardPos)
+		this.snakeEatingCheck();
 		this.gameIsActive()
+	},
+
+	fullViewRefresh: function(){
+		this.View.refreshScreen();
+		this.View.updateSnakeScreen(this.Model.allSnakeBodyPositions());
+		this.View.paintFoodOnCanvas(this.snakeFoodPosition)
+	},
+
+	snakeEatingCheck: function(){
+		if(this.Model.snakeBody[0].boardPos === this.snakeFoodPosition){
+			this.snakeHasEaten()
+		}
+	},
+
+	snakeHasEaten: function(){
+		this.setFood()
+		this.Model.growSnake();
+		this.playerScore +=1
 	},
 
 	gameIsActive: function(){

@@ -48,11 +48,13 @@ SnakeGameController.prototype = {
 
 	placeSnakeOnBoard: function(){
 		this.clearBoard();
-		for(var i=0; i<this.Model.snakeBodyLength(); i++){
+		this.snakeGameBoard[this.Model.snakeBody[0].boardPos] = 3
+		for(var i=1; i<this.Model.snakeBodyLength(); i++){
 			snakePosition = this.Model.snakeBody[i].boardPos
 			this.snakeGameBoard[snakePosition] = 1
 		}
 		this.snakeGameBoard[this.snakeFoodPosition] =2
+		// debugger
 	},
 
 	generateListeners: function(){
@@ -100,7 +102,7 @@ SnakeGameController.prototype = {
 		this.Model.moveSnake();
 		this.placeSnakeOnBoard()
 		this.snakeEatingCheck();
-		this.gameIsActive()
+		this.selfHitCheck()
 	},
 
 	fullViewRefresh: function(){
@@ -121,13 +123,18 @@ SnakeGameController.prototype = {
 		this.playerScore +=1
 	},
 
-	gameIsActive: function(){
-		if(this.Model.snakeBody[1].boardPos< 400){
-			return true
-		}else{
-			clearInterval(this.conInterval)
-			console.log("GAME OVER")
-			return false
+	selfHitCheck: function(){
+		if(this.snakeGameBoard[this.Model.snakeBody[0].boardPos]===1 ){
+		alert("GAME OVER")
+		this.gameReset()
 		}
+	},
+
+	gameReset: function(){
+		this.View = new Canvas();
+		this.Model = new SnakeModel();
+		this.clearBoard()
+		clearInterval(this.conInterval)
 	}
+
 }

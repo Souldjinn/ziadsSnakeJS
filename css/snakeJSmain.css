@@ -1,0 +1,16 @@
+.header {
+	text-align: center;
+	color: blue;
+	height: 100px;
+	background-color: orange;
+}
+ 
+.canvas-holder{
+	text-align: center;
+	border-style: solid;
+	background-color: blue;
+}
+
+.score-board{
+	text-align:center;
+}
